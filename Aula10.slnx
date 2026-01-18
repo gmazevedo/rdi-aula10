@@ -1,3 +1,144 @@
 <Solution>
   <Project Path="Aula10/Aula10.csproj" />
 </Solution>
+
+using System;
+using System.Collections.Generic;
+//Nomes do grupo: Desirée Lefundes, Julia Silva, Marília Lima
+
+Console.WriteLine("Bem vindo ao Pônei Donald!");
+
+Console.WriteLine("Por favor, realize o seu cadastro: ");
+
+    Console.Write("Digite seu nome: ");
+        string Nome = Console.ReadLine();
+
+    Console.Write("Digite seu telefone: ");
+        string Telefone = Console.ReadLine();
+
+Console.WriteLine("--- MENU DE OPÇÕES ---");
+
+    Console.WriteLine("Digite o número da opção que deseja:");
+
+    Console.WriteLine("1. Fazer um novo pedido");
+
+    Console.WriteLine("2. Ver pedidos anteriores");
+
+    Console.WriteLine("3. Sair");
+
+Console.WriteLine("Escolha uma opção: ");
+    string opcao = Console.ReadLine();
+
+namespace PoneiDonald
+{
+    public class Usuario 
+    {
+	public string Nome { get; set; }
+    public string Telefone { get; set; }
+    public List<Pedido> Pedidos { get; set; }
+	
+	public Usuario(string nome, string telefone)
+    {
+        Nome = nome;
+        Telefone = telefone;
+        Pedidos = new List<Pedido>();
+    }
+	public void FazerPedido(Restaurante restaurante, Pedido pedido)
+	{
+		Pedido.add(pedido);
+	
+		restaurante.AdicionarPedido(pedido);
+	
+		Console.WriteLine($"Pedido registrado com sucesso para {Nome}.");
+	}
+	public void VerPedidosAnteriores() 
+	{
+	Console.WriteLine($"Histórico de Pedidos de {Nome}:");
+	foreach (var pedido in Pedidos)
+        {
+            Console.WriteLine(pedido.ToString());
+        }
+	}
+    }
+
+    public class Produto
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public decimal Valor { get; set; }
+        public int QtdEstoque { get; set; }
+
+        public Produto(int id, string nome, decimal valor, int qtdEstoque)
+        {
+            this.Id = id;
+            this.Nome = nome;
+            this.Valor = valor;
+            this.QtdEstoque = qtdEstoque;
+        }
+    }
+
+    public class Pedido
+    {
+    public int Id {get; set;}
+    public dateTime Hora {get; set;}
+    public Usuario Usuario {get; set;}
+    public List<Produto> Produtos {get; set;}
+
+    public Pedido(int id, Usuario usuario)
+    {
+        Id = id;
+        Usuario = usuario;
+        Hora = datetime.now;
+        Produtos = new List<Produto>();
+    }
+
+    public void AdicionarProduto(Produto produto)
+    {
+        Produtos.Add(produto);
+        Console.WriteLine($"{produto.Nome} adicionado ao pedido");
+    }
+
+    public double CalcularTotal()
+    {
+        return Produtos.Sum(p => p.Valor);
+    }
+
+    public void FinalizarPedido()
+    {
+        if (Produtos.Count == 0) ;
+        {
+            Console.WriteLine("O pedido não pode ser finalizado sem produtos adicionados!");
+            return;
+        }
+        Console.WriteLine($"Total: R$ {CalcularTotal():F2}");
+        Console.WriteLine("Pedido confirmado!");
+    }
+    
+}
+
+    public class Restaurante
+    {
+    public List<Produto> Produtos { get; set; }
+    public List<Pedido> Pedidos { get; set; }
+
+    public Restaurante()
+    {
+        Produtos = new List<Produto>();
+        Pedidos = new List<Pedido>();
+    }
+    public void CadastrarProduto(Produto produto)
+    {
+        Produtos.Add(produto);
+    }
+    public void ListProdutosDisponiveis()
+    {
+        Console.WriteLine("\n ---Cardápio---");
+        foreach(var produto in Produtos)
+        {
+            Console.WriteLine($"{produto.Id} - {produto.Nome} | R$ {produto.Valor:F2}");
+        }
+    }
+    }
+    
+    }
+
